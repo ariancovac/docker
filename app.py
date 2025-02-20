@@ -84,37 +84,42 @@ def detalles(game_id):
 
 #------------------------------------------AÑADIR----------------------------------------------#
 
-@app.route('/añadir')
+@app.route('/añadir', methods=['GET', 'POST'])
 def añadir():
+    if request.method == 'POST':
+        try:
+            # Obtiene los datos del formulario
+            nombre = request.form['nombre']
+            cantidad_jugadores = request.form['cantidad_jugadores']
+            limite_edades = request.form['limite_edades']
+            pais_origen = request.form['pais_origen']
+            costo = float(request.form['costo'])
+
+            # Imprime los datos para verificar
+            print(f"Nombre: {nombre}, Cantidad de Jugadores: {cantidad_jugadores}, Límite de Edades: {limite_edades}, País de Origen: {pais_origen}, Costo: {costo}")
+
+            # Obtiene el ID mas alto y le suma 1
+            ultimo_juego = games_collection.find_one(sort=[("id", -1)])
+            nuevo_id = (ultimo_juego["id"] + 1) if ultimo_juego else 1
+
+            # Insertar en la base de datos
+            nuevo_juego = {
+                "id": nuevo_id,
+                "nombre": nombre,
+                "cantidad_jugadores": cantidad_jugadores,
+                "limite_edades": limite_edades,
+                "pais_origen": pais_origen,
+                "costo": costo
+            }
+            games_collection.insert_one(nuevo_juego)
+
+            return redirect(url_for('catalogo'))
+        except Exception as e:
+            print(f"Error al añadir juego: {e}")
+            return "Error al añadir juego", 500
+
     return render_template('añadir.html', title='Añadir Juegos')
 
-@app.route('/añadir', methods=['POST'])
-def crear():
-
-    # Obtiene los datos del formulario
-    nombre = request.form['nombre']
-    cantidad_jugadores = request.form['cantidad_jugadores']
-    limite_edades = request.form['limite_edades']
-    pais_origen = request.form['pais_origen']
-    costo = float(request.form['costo'])
-
-    # Obtiene el ID mas alto y le suma 1 
-    ultimo_juego = games_collection.find_one(sort=[("id", -1)])
-    nuevo_id = (ultimo_juego["id"] + 1) if ultimo_juego else 1
-
-    # Insertar en la base de datos
-    nuevo_juego = {
-        "id": nuevo_id,
-        "nombre": nombre,
-        "cantidad_jugadores": cantidad_jugadores,
-        "limite_edades": limite_edades,
-        "pais_origen": pais_origen,
-        "costo": costo
-    }
-
-    games_collection.insert_one(nuevo_juego)
-
-    return redirect(url_for('catalogo'))  # Redirige al catalogo
 
 #----------------------------------------ELIMINAR----------------------------------------------#
 
