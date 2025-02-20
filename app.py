@@ -9,10 +9,6 @@ client = pymongo.MongoClient("mongodb://mongodb:27017")
 db = client["gamedb"]           #Base de Datos
 games_collection = db["games"]  #Tabla
 
-@app.route('/')
-def inicio():
-    return render_template('inicio.html', title='GameStore')
-
 initial_games = [
     {"id": 1, "nombre": "Pocahontas", "cantidad_jugadores": 4, "limite_edades": 10, "pais_origen": "USA", "costo": 50.0},
     {"id": 2, "nombre": "Kiko: The South Zone", "cantidad_jugadores": 2, "limite_edades": 1, "pais_origen": "Canada", "costo": 30.0}
@@ -21,6 +17,14 @@ initial_games = [
 # Inicializa la base de datos si la colección está vacía
 if games_collection.count_documents({}) == 0:
     games_collection.insert_many(initial_games)
+
+
+
+
+@app.route('/')
+def inicio():
+    return render_template('inicio.html', title='GameStore')
+
 
 #-----------------------------------------CATALOGO----------------------------------------------#
 @app.route('/catalogo')
