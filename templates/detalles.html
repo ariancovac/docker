@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header glassmorphism">          <!-- Barra superior -->
+        <a href="{{ url_for('inicio') }}"><h1>GameStore</h1></a>
+        <div class="subtitle">Tu tienda de juegos favorita</div>
+    </div>
+
+    <div class="window glassmorphism">
+        <img src="{{ url_for('static', filename='img/board_game.jpg') }}" alt="Imagen del Juego" class="rounded-img" style="margin-bottom: 20px;">
+        
+        <h1>{{ game.nombre }}</h1>
+        <div class="grid">
+            <h2>Cantidad de Jugadores:  {{ game.cantidad_jugadores }}</h2>
+            <h2>Límite de Edades:  {{ game.limite_edades }}</h2>
+            <h2>País de Origen:  {{ game.pais_origen }}</h2>
+            <h2>Costo:  ${{ game.costo }}</h2>
+        </div>
+
+
+        <a style="font-size: 30px;" href="{{ url_for('catalogo') }}" class="link-button">Volver al Catálogo</a>
+    </div>
+</body>
+</html>

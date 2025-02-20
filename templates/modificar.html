@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/icono.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+<body>
+    <div class="header glassmorphism">                  <!-- Barra superior -->
+        <a href="{{ url_for('inicio') }}"><h1>GameStore</h1></a>
+        <div class="subtitle">Tu tienda de juegos favorita</div>
+    </div>
+
+
+    <div class="glassmorphism">                         <!-- Menú -->
+        <h1 style="justify-content: left;">Modificar Juego</h1>
+
+
+        <div class="games-container">                   <!-- Contenedores de texto -->
+            <form action="{{ url_for('actualizar_juego', game_id=game.id) }}"   method="POST" class="search-conteiner"   >
+                
+                <div class="search-form" style="font-size: 20px;">                                  <!-- Nombre -->
+                    <label for="nombre">Nombre:</label>
+                    <input style="font-size: 20px;" type="text" id="n" name="nombre" value="{{ game.nombre }}" required>
+                </div>
+
+                <div class="search-form" style="font-size: 20px;">                                  <!-- Cant_J -->
+                    <label for="cantidad_jugadores">Cantidad de Jugadores:</label>
+                    <input style="font-size: 20px;" type="text" id="cj" name="cantidad_jugadores" value="{{ game.cantidad_jugadores }}" required>
+                </div>
+
+                <div class="search-form" style="font-size: 20px;">                                  <!-- Limite_E -->
+                    <label for="limite_edades">Límite de Edades:</label>
+                    <input style="font-size: 20px;" type="number" id="le"  step="1" name="limite_edades" value="{{ game.limite_edades }}" required>
+                </div>
+
+                <div class="search-form" style="font-size: 20px;">                                  <!-- Pais -->
+                    <label for="pais_origen">País de Origen:</label>
+                    <input style="font-size: 20px;" type="text" id="po" name="pais_origen" value="{{ game.pais_origen }}" required>
+                </div>
+
+                <div class="search-form" style="font-size: 20px;">                                  <!-- Costo -->
+                    <label for="costo">Costo:</label>
+                    <input style="font-size: 20px;" type="number" id="c" name="costo" step="0.01" value="{{ game.costo }}"  required>
+                </div>
+
+                <button class="search-form link-button" style="width: 100px; height: 100px;" >      <!-- Boton Guardar -->
+                    <img src="{{ url_for('static', filename='img/save_white.ico') }}" style="width: 50px; height: 50px;">
+                </button>
+                
+            </form>
+
+        </div>
+    </div>
+    
+</body>
+</html>

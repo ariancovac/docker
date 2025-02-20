@@ -1,0 +1,159 @@
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('{{ url_for('static', filename='fonts/SF-Pro-Display-Regular.otf') }}') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-image: url('/static/img/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h1 {
+    font-size: 48px; 
+    margin: 0;
+}
+a {                                     /* Elimina efectos del link */
+    text-decoration: none; 
+    color: inherit;     
+}
+.subtitle {
+    font-size: 24px;
+}
+
+.glassmorphism {                        /* Diseño transparente de la app */
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    padding: 30px;
+    margin: 20px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header {                           
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 30px;
+    flex-direction: row;
+}
+.button-container {                     /* Contenedor de Botones */
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px;
+    width: 100%; 
+    
+}
+.link-button {                          /* Boton para links */
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center; 
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 21px;
+    border: none;
+    overflow: hidden;
+    cursor: pointer;
+
+}
+
+.round-button {                         /* Boton redondo */
+    height: 20px; 
+    border-radius: 50%; 
+    width: 1%;
+    
+}
+.window{                                /* Ventana */
+    margin: 20px 30%;
+    align-items: center; 
+    justify-content: center;
+}
+.rounded-img {                          /* Redondea Imágenes */
+    border-radius: 20px; 
+    max-width: 100%;
+    height: auto;
+}
+
+.games-container {                      /* Conntenedor de juegos */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 25px;
+    gap: 20px;
+}
+.game-card {                            /* Tarjeta de juegos */
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 250px; /* Puedes ajustar el ancho de las tarjetas según tus necesidades */
+}
+
+.full-width {
+    width: 100%;
+}
+
+.search-conteiner{                      /* Contenedor de cajas de busquedas */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+
+}
+
+.search-form {                         /* formato de caja de busqueda */
+    display: flex; 
+    background: rgba(0, 0, 0, 0.2); 
+    border-radius: 50px; 
+    padding: 20px; 
+    color:#fff;
+    align-items: center;
+}
+
+.search-form input {                    /* formato de caja de busqueda */
+    padding: 10px;
+    border-radius: 20px 0 0 20px; 
+    width: 200px; 
+    color: #fff; 
+    border: none;
+    outline: none;
+    background: transparent; 
+}
+.search-form input::placeholder {
+    color: #fff; 
+}
+
+.search-form button {                   /* Boton de busqueda */
+    padding: 10px;
+    border-radius: 40px ; 
+    background-color: rgba(255, 255, 255, 0.3); 
+    color: #fff; /
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.grid {                                 /* Grilla */
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    max-width: 500px; 
+    margin: 20px auto; 
+
+}

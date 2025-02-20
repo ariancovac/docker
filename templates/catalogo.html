@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/icono.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+<body>
+    <div class="header glassmorphism">                  <!-- Barra superior -->
+        <a href="{{ url_for('inicio') }}"><h1>GameStore</h1></a>
+        <div class="subtitle">Tu tienda de juegos favorita</div>
+    </div>
+
+    <div class="glassmorphism">                         <!-- Menú -->
+        <div class="header full-width ">
+            <h1>Catálogo de Juegos</h1>
+
+            <div class="search-conteiner">              <!-- Barra de Herramientas-->
+
+                <a href="{{ url_for('añadir') }}" class="link-button" style="border-radius: 50px;">Añadir Juego</a>     <!-- Añadir -->
+                
+                
+                <form action="{{ url_for('catalogo') }}" method="GET" class="search-form">                              <!-- Buscar -->
+                    <input style="font-size: 20px;" name="q" type="text" placeholder="Buscar Juego..." value="{{ query }}">
+                    <button style="font-size: 30px;"type="submit">🔍</button>
+                </form>
+            </div>
+            
+        </div>
+        
+        <div class="games-container">                   <!-- Contenedores de juegos -->
+            {% for game in games %}
+            <div class="game-card">
+                
+                <img src="{{ url_for('static', filename='img/board_game.jpg') }}" alt="Board Game" class="rounded-img" style="border-radius: 10px;">
+                
+                <h2>{{ game.nombre }}</h2>
+                <div class="button-container">                                                                          <!-- Eliminar -->
+                    <form action="{{ url_for('eliminar_juego', game_id=game.id) }}" method="POST" class="link-button round-button" style="color: transparent;">
+                        <button  class="link-button "type="submit" style="color: transparent;" onclick="return confirm('¿Estás seguro de eliminar este juego?');">
+                            <img src="{{ url_for('static', filename='img/delete.ico') }}" alt="Eliminar" style="width: 20px; height: 20px;">
+                        </button>
+                    </form>
+                    
+                    <a href="{{ url_for('detalles', game_id=game.id) }}" class="link-button">Detalles</a>               <!-- Detalles -->
+
+                    <a href="{{ url_for('modificar', game_id=game.id) }}" class="link-button round-button">             <!-- Modificar -->
+                        <img src="{{ url_for('static', filename='img/modify_white.ico') }}" alt="Modificar" style="width: 18px; height: 18px;">
+                    </a>
+                    
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+            
+</body>
+</html>
