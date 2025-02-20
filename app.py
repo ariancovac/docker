@@ -14,8 +14,8 @@ def inicio():
     return render_template('inicio.html', title='GameStore')
 
 initial_games = [
-    {"id": 1, "nombre": "Game 1", "cantidad_jugadores": 4, "limite_edades": "10+", "pais_origen": "USA", "costo": 50.0},
-    {"id": 2, "nombre": "Game 2", "cantidad_jugadores": 2, "limite_edades": "12+", "pais_origen": "Canada", "costo": 30.0}
+    {"id": 1, "nombre": "Pocahontas", "cantidad_jugadores": 4, "limite_edades": 10, "pais_origen": "USA", "costo": 50.0},
+    {"id": 2, "nombre": "Kiko: The South Zone", "cantidad_jugadores": 2, "limite_edades": 1, "pais_origen": "Canada", "costo": 30.0}
 ]
 
 # Inicializa la base de datos si la colección está vacía
