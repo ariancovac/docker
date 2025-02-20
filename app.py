@@ -4,7 +4,6 @@ import pymongo
 import os
 
 app = Flask(__name__)
-#MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongodb:27017/gamedb")
 client = pymongo.MongoClient("mongodb://mongodb:27017")
 
 db = client["gamedb"]           #Base de Datos
@@ -13,6 +12,15 @@ games_collection = db["games"]  #Tabla
 @app.route('/')
 def inicio():
     return render_template('inicio.html', title='GameStore')
+
+initial_games = [
+    {"id": 1, "nombre": "Game 1", "cantidad_jugadores": 4, "limite_edades": "10+", "pais_origen": "USA", "costo": 50.0},
+    {"id": 2, "nombre": "Game 2", "cantidad_jugadores": 2, "limite_edades": "12+", "pais_origen": "Canada", "costo": 30.0}
+]
+
+# Inicializa la base de datos si la colección está vacía
+if games_collection.count_documents({}) == 0:
+    games_collection.insert_many(initial_games)
 
 #-----------------------------------------CATALOGO----------------------------------------------#
 @app.route('/catalogo')
