@@ -2,7 +2,7 @@ Aplicación Web hecha en framework flask basado en python alojado en un servidor
 
 Pasos ejecución: 
 1. Clonar el repositorio en GitHub   https://github.com/ariancovac/docker.git
-2. Abrir terminal en la carpeta de este proyecto
+2. cd docker
 3. Ejecutar el comando "Docker compose up"
 4. Una vez iniciado el servidor, entrar en la pagina: http://localhost:80
 5. Para apagarlo, hacerlo desde Docker desktop o "docker stop web" en la misma terminal anterior.

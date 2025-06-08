@@ -122,7 +122,7 @@ def añadir():
             print(f"Error al añadir juego: {e}")
             return "Error al añadir juego", 500
 
-    return render_template('añadir.html', title='Añadir Juegos')
+    return render_template('add.html', title='Añadir Juegos')
 
 
 #----------------------------------------ELIMINAR----------------------------------------------#
@@ -137,3 +137,5 @@ def eliminar_juego(game_id):
 
     return redirect(url_for('catalogo'))
 
+if __name__ == '__main__':
+    app.run(debug=True)
