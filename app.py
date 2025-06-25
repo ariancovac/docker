@@ -6,20 +6,20 @@ import os
 app = Flask(__name__)
 client = pymongo.MongoClient("mongodb://mongodb:27017")
 
-db = client["gamedb"]           #Base de Datos
-games_collection = db["games"]  #Tabla
+db = client["gamedb"]           #base de datos
+games_collection = db["games"]  #tabla
 
 initial_games = [
     {"id": 1, "nombre": "Pocahontas", "cantidad_jugadores": 4, "limite_edades": 10, "pais_origen": "USA", "costo": 50.0},
     {"id": 2, "nombre": "Kiko: The South Zone", "cantidad_jugadores": 2, "limite_edades": 1, "pais_origen": "Canada", "costo": 30.0}
 ]
 
-# Inicializa la base de datos si la colección está vacía
+# inicializa la base de datos si la coleccion está vacia
 if games_collection.count_documents({}) == 0:
     games_collection.insert_many(initial_games)
 
 
-
+#------------------------------------------INICIO-----------------------------------------------#
 
 @app.route('/')
 def inicio():
@@ -29,11 +29,11 @@ def inicio():
 #-----------------------------------------CATALOGO----------------------------------------------#
 @app.route('/catalogo')
 def catalogo():
-    # Obtiene parametro de busqueda
+    # obtiene parametro de busqueda
     query = request.args.get("q", "").strip().lower()
 
     if query:
-        games = list(games_collection.find({"nombre": {"$regex": query, "$options": "i"}}))
+        games = list(games_collection.find({"nombre": {"$regex": query, "$options": "i"}}))     #busca en la coleccion ignorando mayus y minus
     else:
         games = list(games_collection.find())
 
@@ -47,20 +47,20 @@ def modificar(game_id):
     game=games_collection.find_one({"id":game_id})
     if not game:
         return "Juego no encontrado", 404
-    
+
     return render_template('modificar.html', title='Modificar Juego', game=game)
 
 @app.route('/modificar/<int:game_id>', methods=['POST'])
 def actualizar_juego(game_id):
 
-    # Obtiene los datos del formulario
+    # obtiene los datos del formulario
     nombre = request.form['nombre']
     cantidad_jugadores = request.form['cantidad_jugadores']
     limite_edades = request.form['limite_edades']
     pais_origen = request.form['pais_origen']
     costo = float(request.form['costo'])
 
-    # Actualiza la base de datos
+    # actualiza la base de datos
     games_collection.update_one(
         {"id": game_id},
         {"$set": {
@@ -92,21 +92,18 @@ def detalles(game_id):
 def añadir():
     if request.method == 'POST':
         try:
-            # Obtiene los datos del formulario
+            # obtiene los datos del formulario
             nombre = request.form['nombre']
             cantidad_jugadores = request.form['cantidad_jugadores']
             limite_edades = request.form['limite_edades']
             pais_origen = request.form['pais_origen']
             costo = float(request.form['costo'])
 
-            # Imprime los datos para verificar
-            print(f"Nombre: {nombre}, Cantidad de Jugadores: {cantidad_jugadores}, Límite de Edades: {limite_edades}, País de Origen: {pais_origen}, Costo: {costo}")
-
-            # Obtiene el ID mas alto y le suma 1
+            # obtiene el ID mas alto y le suma 1
             ultimo_juego = games_collection.find_one(sort=[("id", -1)])
             nuevo_id = (ultimo_juego["id"] + 1) if ultimo_juego else 1
 
-            # Insertar en la base de datos
+            # insertar en la base de datos
             nuevo_juego = {
                 "id": nuevo_id,
                 "nombre": nombre,
@@ -129,7 +126,7 @@ def añadir():
 
 @app.route('/eliminar/<int:game_id>', methods=['POST'])
 def eliminar_juego(game_id):
-    # Busca y elimina el juego por su ID
+    # busca y elimina el juego por su ID
     resultado = games_collection.delete_one({"id": game_id})
 
     if resultado.deleted_count == 0:
